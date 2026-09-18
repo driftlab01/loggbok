@@ -4,487 +4,194 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Loggbøker – Bildediagnostikk Kalnes</title>
-<meta name="description" content="Samlet oversikt over loggbøker for laber og transportable enheter, veiledning for loggføring, og direkte e-post ved feil." />
+<meta name="description" content="Loggbøker, kort veiledning og direkte e-post ved feil." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #f4f6fb;
-    --bg-grad-1: #eef2fb;
-    --bg-grad-2: #f7f9fd;
-    --surface: #ffffff;
-    --surface-2: #f8fafc;
-    --border: #e5e9f2;
-    --text: #0f1b33;
-    --text-soft: #4a5875;
-    --text-muted: #8a94ad;
-    --brand: #1d5fd6;
-    --brand-strong: #1749a8;
-    --brand-soft: #e8f0ff;
-    --accent: #0ea5a4;
-    --danger: #dc2626;
-    --shadow-sm: 0 1px 2px rgba(15,27,51,.06), 0 2px 8px rgba(15,27,51,.05);
-    --shadow-md: 0 8px 24px rgba(15,27,51,.10);
-    --shadow-lg: 0 24px 60px rgba(15,27,51,.16);
-    --radius: 18px;
-    --radius-sm: 12px;
+    --bg: #f5f7fb; --surface: #fff; --surface-2: #f4f6fb; --border: #e5e9f2;
+    --text: #0f1b33; --soft: #566180; --muted: #97a1ba;
+    --brand: #1d5fd6; --brand-strong: #1749a8; --brand-soft: #e8f0ff; --accent: #0ea5a4;
+    --shadow: 0 1px 2px rgba(15,27,51,.05), 0 6px 20px rgba(15,27,51,.06);
+    --shadow-lg: 0 16px 40px rgba(15,27,51,.14);
+    --r: 14px;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0a0f1c;
-      --bg-grad-1: #0d1424;
-      --bg-grad-2: #0a0f1c;
-      --surface: #131b2e;
-      --surface-2: #0f1727;
-      --border: #24304a;
-      --text: #eef2fb;
-      --text-soft: #b3bed6;
-      --text-muted: #7f8bab;
-      --brand: #5b8def;
-      --brand-strong: #3f74e0;
-      --brand-soft: #17233d;
-      --accent: #2dd4bf;
-      --danger: #f87171;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
-      --shadow-md: 0 10px 30px rgba(0,0,0,.45);
-      --shadow-lg: 0 28px 70px rgba(0,0,0,.6);
+    :root {
+      --bg: #0a0f1c; --surface: #131b2e; --surface-2: #0f1727; --border: #24304a;
+      --text: #eef2fb; --soft: #aab4cf; --muted: #7a86a6;
+      --brand: #5b8def; --brand-strong: #3f74e0; --brand-soft: #17233d; --accent: #2dd4bf;
+      --shadow: 0 1px 2px rgba(0,0,0,.3); --shadow-lg: 0 20px 50px rgba(0,0,0,.55);
     }
   }
-  :root[data-theme="dark"] {
-    --bg: #0a0f1c;
-    --bg-grad-1: #0d1424;
-    --bg-grad-2: #0a0f1c;
-    --surface: #131b2e;
-    --surface-2: #0f1727;
-    --border: #24304a;
-    --text: #eef2fb;
-    --text-soft: #b3bed6;
-    --text-muted: #7f8bab;
-    --brand: #5b8def;
-    --brand-strong: #3f74e0;
-    --brand-soft: #17233d;
-    --accent: #2dd4bf;
-    --danger: #f87171;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
-    --shadow-md: 0 10px 30px rgba(0,0,0,.45);
-    --shadow-lg: 0 28px 70px rgba(0,0,0,.6);
-  }
-
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    color: var(--text);
-    background:
-      radial-gradient(1200px 600px at 85% -10%, var(--bg-grad-1), transparent 60%),
-      radial-gradient(900px 500px at -10% 10%, var(--bg-grad-1), transparent 55%),
-      var(--bg);
-    background-attachment: fixed;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text); background: var(--bg); line-height: 1.5; -webkit-font-smoothing: antialiased;
   }
-  .wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 16px; }
-  a { color: var(--brand); }
+  .wrap { width: 100%; max-width: 880px; margin: 0 auto; padding: 28px 16px 40px; }
 
-  /* Header */
-  header.site {
-    position: sticky; top: 0; z-index: 20;
-    backdrop-filter: saturate(160%) blur(12px);
-    background: color-mix(in srgb, var(--surface) 78%, transparent);
-    border-bottom: 1px solid var(--border);
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+  .logo {
+    width: 42px; height: 42px; border-radius: 11px; flex: none; display: grid; place-items: center; color: #fff;
+    background: linear-gradient(135deg, var(--brand), var(--accent)); box-shadow: var(--shadow);
   }
-  .nav { display: flex; align-items: center; gap: 14px; padding: 12px 0; }
-  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: -.01em; }
-  .brand .logo {
-    width: 40px; height: 40px; border-radius: 11px; flex: none;
-    background: linear-gradient(135deg, var(--brand), var(--accent));
-    display: grid; place-items: center; color: #fff; box-shadow: var(--shadow-sm);
-  }
-  .brand .logo svg { width: 22px; height: 22px; }
-  .brand small { display: block; font-weight: 500; color: var(--text-muted); font-size: .78rem; letter-spacing: .01em; }
-  .nav-links { margin-left: auto; display: flex; gap: 6px; align-items: center; }
-  .nav-links a {
-    text-decoration: none; color: var(--text-soft); font-weight: 500; font-size: .92rem;
-    padding: 8px 12px; border-radius: 10px;
-  }
-  .nav-links a:hover { color: var(--text); background: var(--surface-2); }
-  .theme-btn {
-    border: 1px solid var(--border); background: var(--surface); color: var(--text-soft);
-    width: 38px; height: 38px; border-radius: 10px; cursor: pointer; display: grid; place-items: center;
-  }
-  .theme-btn:hover { color: var(--text); }
-  .theme-btn svg { width: 18px; height: 18px; }
-  @media (max-width: 640px) { .nav-links a:not(.cta) { display: none; } }
+  .logo svg { width: 23px; height: 23px; }
+  header h1 { font-size: 1.25rem; margin: 0; letter-spacing: -.01em; }
+  header p { margin: 1px 0 0; font-size: .82rem; color: var(--muted); }
 
-  /* Hero */
-  .hero { padding: 56px 0 20px; }
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
-    color: var(--brand-strong); background: var(--brand-soft);
-    padding: 6px 12px; border-radius: 999px; margin-bottom: 18px;
+  h2 {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted);
+    margin: 0 0 12px; font-weight: 700;
   }
-  .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.08; letter-spacing: -.03em;
-    margin: 0 0 16px; font-weight: 800;
-  }
-  .hero p.lead { font-size: clamp(1.02rem, 2vw, 1.18rem); color: var(--text-soft); max-width: 640px; margin: 0 0 26px; }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  section { margin-bottom: 26px; }
 
+  /* Lab links */
+  .labs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media (max-width: 620px) { .labs { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 380px) { .labs { grid-template-columns: 1fr; } }
+  .lab {
+    display: flex; align-items: center; gap: 11px; text-decoration: none; color: inherit;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+    padding: 14px 15px; box-shadow: var(--shadow); transition: transform .12s, box-shadow .12s, border-color .12s;
+  }
+  .lab:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--brand) 45%, var(--border)); }
+  .lab .ic { width: 34px; height: 34px; border-radius: 9px; flex: none; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand-strong); }
+  .lab.t .ic { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
+  .lab .ic svg { width: 19px; height: 19px; }
+  .lab b { font-weight: 600; font-size: .95rem; display: block; }
+  .lab span { font-size: .74rem; color: var(--muted); }
+
+  /* Info */
+  .info {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+    box-shadow: var(--shadow); padding: 16px 18px;
+  }
+  .info ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+  .info li { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--soft); }
+  .info li svg { width: 17px; height: 17px; flex: none; color: var(--accent); margin-top: 2px; }
+  .info li b { color: var(--text); font-weight: 600; }
+  .info .warn { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); font-size: .83rem; color: var(--muted); }
+
+  /* Email */
+  .mail {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow);
+    padding: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; justify-content: space-between;
+  }
+  .mail .txt { min-width: 0; }
+  .mail .txt b { font-size: .98rem; }
+  .mail .txt p { margin: 2px 0 0; font-size: .82rem; color: var(--muted); }
   .btn {
-    display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
-    font-weight: 600; font-size: .96rem; text-decoration: none;
-    padding: 13px 20px; border-radius: 12px; border: 1px solid transparent;
-    transition: transform .12s ease, box-shadow .12s ease, background .15s ease;
+    display: inline-flex; align-items: center; gap: 9px; text-decoration: none; cursor: pointer;
+    font-weight: 600; font-size: .94rem; padding: 12px 18px; border-radius: 11px; border: 0; white-space: nowrap;
+    background: linear-gradient(135deg, var(--brand), var(--brand-strong)); color: #fff; box-shadow: var(--shadow);
+    transition: transform .12s, box-shadow .12s;
   }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
   .btn svg { width: 18px; height: 18px; }
-  .btn-primary { background: linear-gradient(135deg, var(--brand), var(--brand-strong)); color: #fff; box-shadow: var(--shadow-md); }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-  .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border); box-shadow: var(--shadow-sm); }
-  .btn-ghost:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-  /* Section heading */
-  .section { padding: 40px 0; }
-  .section-head { margin-bottom: 24px; }
-  .section-head h2 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -.02em; margin: 0 0 8px; }
-  .section-head p { color: var(--text-soft); margin: 0; max-width: 620px; }
-
-  /* Lab grid */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .card {
-    position: relative; display: flex; flex-direction: column; gap: 14px;
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 20px; text-decoration: none; color: inherit; box-shadow: var(--shadow-sm);
-    transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
-    overflow: hidden;
+  .copyrow { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .copy {
+    border: 1px solid var(--border); background: var(--surface-2); color: var(--soft);
+    font: inherit; font-size: .8rem; font-weight: 500; padding: 7px 11px; border-radius: 9px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
   }
-  .card::before {
-    content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
-    background: linear-gradient(90deg, var(--brand), var(--accent));
-    opacity: 0; transition: opacity .14s ease;
-  }
-  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: color-mix(in srgb, var(--brand) 40%, var(--border)); }
-  .card:hover::before { opacity: 1; }
-  .card-top { display: flex; align-items: center; gap: 13px; }
-  .card-icon {
-    width: 46px; height: 46px; border-radius: 12px; flex: none; display: grid; place-items: center;
-    background: var(--brand-soft); color: var(--brand-strong);
-  }
-  .card-icon svg { width: 24px; height: 24px; }
-  .card.transport .card-icon { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--accent); }
-  .card h3 { margin: 0; font-size: 1.15rem; letter-spacing: -.01em; }
-  .card .tag { font-size: .78rem; color: var(--text-muted); font-weight: 500; }
-  .card .go { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: .9rem; color: var(--brand); }
-  .card .go svg { width: 16px; height: 16px; transition: transform .14s ease; }
-  .card:hover .go svg { transform: translateX(3px); }
+  .copy:hover { color: var(--text); border-color: var(--brand); }
+  .copy.ok { color: var(--accent); border-color: var(--accent); }
+  .copy svg { width: 14px; height: 14px; }
+  .copy small { color: var(--muted); font-weight: 400; }
 
-  /* Info / guide */
-  .guide-wrap { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; align-items: start; }
-  @media (max-width: 820px) { .guide-wrap { grid-template-columns: 1fr; } }
-  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-  .panel-pad { padding: 24px; }
-  ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 16px; }
-  ol.steps li { position: relative; padding-left: 48px; }
-  ol.steps li::before {
-    counter-increment: step; content: counter(step);
-    position: absolute; left: 0; top: 0; width: 32px; height: 32px; border-radius: 9px;
-    background: var(--brand-soft); color: var(--brand-strong); font-weight: 700;
-    display: grid; place-items: center; font-size: .95rem;
-  }
-  ol.steps li strong { display: block; margin-bottom: 2px; }
-  ol.steps li span { color: var(--text-soft); font-size: .95rem; }
-
-  .checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 11px; }
-  .checklist li { display: flex; gap: 10px; align-items: flex-start; color: var(--text-soft); font-size: .94rem; }
-  .checklist svg { width: 19px; height: 19px; flex: none; color: var(--accent); margin-top: 1px; }
-
-  .note {
-    display: flex; gap: 11px; align-items: flex-start;
-    background: color-mix(in srgb, var(--brand) 8%, transparent);
-    border: 1px solid color-mix(in srgb, var(--brand) 22%, var(--border));
-    border-radius: var(--radius-sm); padding: 14px 16px; margin-top: 18px; font-size: .9rem; color: var(--text-soft);
-  }
-  .note svg { width: 20px; height: 20px; flex: none; color: var(--brand); margin-top: 1px; }
-
-  /* Email section */
-  .mail-card {
-    background:
-      radial-gradient(600px 300px at 90% 0%, color-mix(in srgb, var(--brand) 18%, transparent), transparent 60%),
-      var(--surface);
-    border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-md);
-    padding: 30px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center;
-  }
-  @media (max-width: 780px) { .mail-card { grid-template-columns: 1fr; padding: 24px; } }
-  .mail-card h2 { margin: 0 0 8px; font-size: clamp(1.4rem, 3vw, 1.9rem); letter-spacing: -.02em; }
-  .mail-card p { color: var(--text-soft); margin: 0 0 20px; }
-  .recip { display: grid; gap: 14px; }
-  .recip-block { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; }
-  .recip-block .rl { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
-  .recip-block .rl span { font-size: .74rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); }
-  .recip-block .addr { font-size: .84rem; color: var(--text-soft); word-break: break-all; line-height: 1.7; }
-  .copy-btn {
-    border: 1px solid var(--border); background: var(--surface); color: var(--text-soft);
-    font-size: .78rem; font-weight: 600; padding: 5px 10px; border-radius: 8px; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
-  }
-  .copy-btn:hover { color: var(--text); border-color: var(--brand); }
-  .copy-btn svg { width: 14px; height: 14px; }
-  .copy-btn.done { color: var(--accent); border-color: var(--accent); }
-
-  /* Footer */
-  footer.site { border-top: 1px solid var(--border); margin-top: 40px; padding: 28px 0 40px; color: var(--text-muted); font-size: .86rem; }
-  footer.site .fl { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
-  footer.site a { color: var(--text-soft); text-decoration: none; }
-  footer.site a:hover { color: var(--text); }
-
-  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+  footer { text-align: center; font-size: .78rem; color: var(--muted); margin-top: 4px; }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<header class="site">
-  <div class="wrap nav">
-    <div class="brand">
-      <span class="logo" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v5h5"/><path d="M8 13h8M8 17h5"/></svg>
-      </span>
-      <div>
-        Loggbøker
-        <small>Bildediagnostikk · Kalnes</small>
-      </div>
+  <header>
+    <span class="logo" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h11l5 5v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v5h5"/><path d="M8 13h8M8 17h5"/></svg>
+    </span>
+    <div>
+      <h1>Loggbøker</h1>
+      <p>Bildediagnostikk · Kalnes</p>
     </div>
-    <nav class="nav-links">
-      <a href="#loggboker">Loggbøker</a>
-      <a href="#veiledning">Veiledning</a>
-      <a href="#epost">Meld feil</a>
-      <a class="cta" href="#epost" style="color:var(--brand);font-weight:600;">Send e-post →</a>
-      <button class="theme-btn" id="themeToggle" title="Bytt lyst/mørkt tema" aria-label="Bytt tema">
-        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-    </nav>
-  </div>
-</header>
+  </header>
 
-<main>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
-      <span class="eyebrow">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-        Alt på ett sted
-      </span>
-      <h1>Loggbøker for laber og transportable enheter</h1>
-      <p class="lead">Rask tilgang til alle loggbøkene, en enkel veiledning for hvordan du fører logg, og direkte e-post til de ansvarlige når noe skal meldes.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#loggboker">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          Åpne en loggbok
-        </a>
-        <a class="btn btn-ghost" href="#epost">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-          Meld feil på e-post
-        </a>
-      </div>
+  <section>
+    <h2>Åpne loggbok</h2>
+    <div class="labs" id="labs"></div>
+  </section>
+
+  <section>
+    <h2>Slik fører du loggen</h2>
+    <div class="info">
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Dato, tid og navn</b> på den som fører.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Hva skjedde</b> – enhet/rom, hendelse og evt. feilmelding/kode.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Tiltak og status</b> – hva ble gjort, og hva gjenstår.</span></li>
+      </ul>
+      <div class="warn">Ikke skriv pasientopplysninger i loggen. Ved feil som må følges opp: send e-post nedenfor.</div>
     </div>
   </section>
 
-  <!-- LOGGBØKER -->
-  <section class="section" id="loggboker">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Loggbøker</h2>
-        <p>Klikk på en enhet for å åpne loggboken i SharePoint / Word.</p>
+  <section>
+    <h2>Meld feil</h2>
+    <div class="mail">
+      <div class="txt">
+        <b>Send e-post til ansvarlige</b>
+        <p>Åpner Outlook med mottakere ferdig utfylt.</p>
       </div>
-      <div class="grid" id="labGrid"><!-- fylles av JS --></div>
+      <a class="btn" id="mailBtn" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        Åpne e-post
+      </a>
+    </div>
+    <div class="copyrow">
+      <button class="copy" data-copy="to"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Kopier mottakere <small>(Til)</small></button>
+      <button class="copy" data-copy="cc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Kopier kopimottakere <small>(Kopi)</small></button>
     </div>
   </section>
 
-  <!-- VEILEDNING -->
-  <section class="section" id="veiledning">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Slik fører du loggen</h2>
-        <p>Målet er at hvem som helst skal forstå hendelsen uten å ha vært til stede. Vær kort, konkret og etterrettelig.</p>
-      </div>
-      <div class="guide-wrap">
-        <div class="panel panel-pad">
-          <ol class="steps">
-            <li><strong>Åpne riktig loggbok</strong><span>Velg loggboken for den enheten eller laben det gjelder, fra oversikten over.</span></li>
-            <li><strong>Skriv dato, klokkeslett og navn</strong><span>Før på når hendelsen skjedde og hvem som registrerer den, slik at oppføringen kan spores.</span></li>
-            <li><strong>Beskriv hva som skjedde</strong><span>Hva ble observert, hvilket utstyr/rom, og eventuelle feilmeldinger eller koder – ordrett.</span></li>
-            <li><strong>Beskriv tiltak</strong><span>Hva ble gjort der og da, hva fungerte, og hva som eventuelt gjenstår.</span></li>
-            <li><strong>Meld videre ved behov</strong><span>Ved feil som må følges opp: send e-post til de ansvarlige via knappen nederst.</span></li>
-          </ol>
-          <div class="note">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            <span><strong>Merk:</strong> Skriv aldri pasientidentifiserbare opplysninger i loggboken. Loggen gjelder utstyr, drift og hendelser – ikke pasientdata.</span>
-          </div>
-        </div>
-        <div class="panel panel-pad">
-          <h3 style="margin:0 0 14px;font-size:1.05rem;">Hver oppføring bør ha</h3>
-          <ul class="checklist">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Dato og klokkeslett</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Navn / initialer på den som fører</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Enhet / lab / rom</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Beskrivelse av hendelsen</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Feilmelding / kode (hvis relevant)</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>Tiltak og status</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
+  <footer>Sykehuset Østfold · Bildediagnostikk, Kalnes</footer>
 
-  <!-- E-POST -->
-  <section class="section" id="epost">
-    <div class="wrap">
-      <div class="mail-card">
-        <div>
-          <h2>Meld feil på e-post</h2>
-          <p>Knappen åpner e-postprogrammet ditt (f.eks. Outlook) med mottakere og kopimottakere ferdig utfylt. Fyll inn emne og beskrivelse, og send.</p>
-          <a class="btn btn-primary" id="mailBtn" href="#">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-            Åpne e-post i Outlook
-          </a>
-          <div class="note">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            <span>Får du ikke opp alle mottakerne automatisk? Bruk kopier-knappene til høyre og lim inn adressene manuelt.</span>
-          </div>
-        </div>
-        <div class="recip">
-          <div class="recip-block">
-            <div class="rl">
-              <span>Til</span>
-              <button class="copy-btn" data-copy="to"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Kopier</button>
-            </div>
-            <div class="addr" id="toAddr"></div>
-          </div>
-          <div class="recip-block">
-            <div class="rl">
-              <span>Kopi (Cc)</span>
-              <button class="copy-btn" data-copy="cc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Kopier</button>
-            </div>
-            <div class="addr" id="ccAddr"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="site">
-  <div class="wrap fl">
-    <span>Bildediagnostikk, Akutten – Sykehuset Østfold, Kalnes</span>
-    <span>Intern side for loggføring · <a href="#loggboker">Til toppen</a></span>
-  </div>
-</footer>
+</div>
 
 <script>
-  // ---- Data ----
   var LABS = [
-    { name: "Lab 4", type: "lab", desc: "Loggbok Lab 4", url: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B780AFDDC-BA02-483E-9558-0FFA0A00C2EB%7D&file=LOGGBOK%20LAB%204.docx&action=default&mobileredirect=true" },
-    { name: "Lab 6", type: "lab", desc: "Loggbok Lab 6", url: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B5F8BC542-D898-4F64-83F1-FE17A14005DC%7D&file=LOGGBOK%20LAB%206.docx&action=default&mobileredirect=true" },
-    { name: "Lab 7", type: "lab", desc: "Loggbok Lab 7", url: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B39A87826-9A24-4233-8DEB-F0EC5DDDA673%7D&file=LOGGBOK%20LAB%207.docx&action=default&mobileredirect=true" },
-    { name: "Transportabel 2", type: "transport", desc: "Loggbok transportabelt 2", url: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B8A8BD90B-4F3F-458B-85DA-29BBBAB184A5%7D&file=LOGGBOK%20TRANSPORTABELT%202.docx&action=default&mobileredirect=true" },
-    { name: "Transportabel 3", type: "transport", desc: "Loggbok transportabelt 3", url: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B1D402204-E145-472F-A71C-22B79BE00FA2%7D&file=LOGGBOK%20TRANSPORTABELT%203.docx&action=default&mobileredirect=true" },
-    { name: "Transportabel 4", type: "transport", desc: "Loggbok transportabelt 4", url: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B4E2EF88B-4AF1-4805-AD0A-AF7BF2826A4D%7D&file=LOGGBOK%20TRANSPORTABELT%204.docx&action=default&mobileredirect=true" }
+    { n: "Lab 4", t: 0, u: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B780AFDDC-BA02-483E-9558-0FFA0A00C2EB%7D&file=LOGGBOK%20LAB%204.docx&action=default&mobileredirect=true" },
+    { n: "Lab 6", t: 0, u: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B5F8BC542-D898-4F64-83F1-FE17A14005DC%7D&file=LOGGBOK%20LAB%206.docx&action=default&mobileredirect=true" },
+    { n: "Lab 7", t: 0, u: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B39A87826-9A24-4233-8DEB-F0EC5DDDA673%7D&file=LOGGBOK%20LAB%207.docx&action=default&mobileredirect=true" },
+    { n: "Transportabel 2", t: 1, u: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B8A8BD90B-4F3F-458B-85DA-29BBBAB184A5%7D&file=LOGGBOK%20TRANSPORTABELT%202.docx&action=default&mobileredirect=true" },
+    { n: "Transportabel 3", t: 1, u: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B1D402204-E145-472F-A71C-22B79BE00FA2%7D&file=LOGGBOK%20TRANSPORTABELT%203.docx&action=default&mobileredirect=true" },
+    { n: "Transportabel 4", t: 1, u: "https://hsorhf.sharepoint.com/:w:/r/sites/SHF-O-461010BildediagnostikkAkuttKalnes/_layouts/15/Doc.aspx?sourcedoc=%7B4E2EF88B-4AF1-4805-AD0A-AF7BF2826A4D%7D&file=LOGGBOK%20TRANSPORTABELT%204.docx&action=default&mobileredirect=true" }
   ];
-
   var TO = ["Andreas.Hov@so-hf.no","Peter.Michael.Skauen@so-hf.no","Pal.Granheim@so-hf.no","Hans.Petter.Steine.Olsen@so-hf.no"];
   var CC = ["Beate.Mangseth@so-hf.no","Markus.Jaworski@so-hf.no"];
 
-  var ICON_LAB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 7h8M8 11h8M8 3v14"/></svg>';
-  var ICON_TRANSPORT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>';
-  var ICON_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  var IC_LAB = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M8 7h8M8 11h8"/></svg>';
+  var IC_T = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.3a4 4 0 0 0-1.2-2.9L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.2"/><circle cx="17.5" cy="17.5" r="2.2"/></svg>';
 
-  // ---- Render lab cards ----
-  (function () {
-    var grid = document.getElementById("labGrid");
-    var html = "";
-    for (var i = 0; i < LABS.length; i++) {
-      var l = LABS[i];
-      var icon = l.type === "transport" ? ICON_TRANSPORT : ICON_LAB;
-      html += '<a class="card ' + (l.type === "transport" ? "transport" : "") + '" href="' + l.url + '" target="_blank" rel="noopener noreferrer">'
-        + '<div class="card-top"><span class="card-icon">' + icon + '</span>'
-        + '<div><h3>' + l.name + '</h3><div class="tag">' + l.desc + '</div></div></div>'
-        + '<span class="go">Åpne loggbok ' + ICON_ARROW + '</span>'
-        + '</a>';
-    }
-    grid.innerHTML = html;
-  })();
+  document.getElementById("labs").innerHTML = LABS.map(function (l) {
+    return '<a class="lab ' + (l.t ? "t" : "") + '" href="' + l.u + '" target="_blank" rel="noopener noreferrer">'
+      + '<span class="ic">' + (l.t ? IC_T : IC_LAB) + '</span>'
+      + '<span><b>' + l.n + '</b><span>Åpne loggbok</span></span></a>';
+  }).join("");
 
-  // ---- Build mailto ----
-  (function () {
-    var subject = "Loggbok - melding fra Bildediagnostikk Kalnes";
-    var body = [
-      "Enhet / lab: ",
-      "Dato og klokkeslett: ",
-      "Beskrivelse av hendelsen: ",
-      "Feilmelding / kode: ",
-      "Tiltak / status: ",
-      "",
-      "Meldt av: "
-    ].join("\r\n");
+  var body = ["Enhet / lab: ","Dato og tid: ","Hendelse: ","Feilmelding / kode: ","Tiltak / status: ","","Meldt av: "].join("\r\n");
+  document.getElementById("mailBtn").href = "mailto:" + TO.join(";") + "?cc=" + CC.join(";")
+    + "&subject=" + encodeURIComponent("Loggbok - melding fra Bildediagnostikk Kalnes")
+    + "&body=" + encodeURIComponent(body);
 
-    var href = "mailto:" + TO.join(";")
-      + "?cc=" + CC.join(";")
-      + "&subject=" + encodeURIComponent(subject)
-      + "&body=" + encodeURIComponent(body);
-
-    document.getElementById("mailBtn").setAttribute("href", href);
-    document.getElementById("toAddr").textContent = TO.join(", ");
-    document.getElementById("ccAddr").textContent = CC.join(", ");
-  })();
-
-  // ---- Copy buttons ----
-  document.querySelectorAll(".copy-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var list = btn.getAttribute("data-copy") === "cc" ? CC : TO;
-      var text = list.join("; ");
-      var done = function () {
-        var orig = btn.innerHTML;
-        btn.classList.add("done");
-        btn.textContent = "Kopiert ✓";
-        setTimeout(function () { btn.classList.remove("done"); btn.innerHTML = orig; }, 1600);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
-      } else { fallbackCopy(text, done); }
+  document.querySelectorAll(".copy").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var txt = (b.dataset.copy === "cc" ? CC : TO).join("; ");
+      var done = function () { var h = b.innerHTML; b.classList.add("ok"); b.textContent = "Kopiert ✓"; setTimeout(function () { b.classList.remove("ok"); b.innerHTML = h; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () { fb(txt, done); });
+      else fb(txt, done);
     });
   });
-  function fallbackCopy(text, cb) {
-    var ta = document.createElement("textarea");
-    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand("copy"); } catch (e) {}
-    document.body.removeChild(ta); if (cb) cb();
-  }
-
-  // ---- Theme toggle ----
-  (function () {
-    var root = document.documentElement;
-    var btn = document.getElementById("themeToggle");
-    var sun = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
-    var moon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
-    var stored = null;
-    try { stored = localStorage.getItem("loggbok-theme"); } catch (e) {}
-    if (stored) root.setAttribute("data-theme", stored);
-    function paint() {
-      var dark = root.getAttribute("data-theme") === "dark" ||
-        (!root.getAttribute("data-theme") && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-      btn.innerHTML = dark ? sun : moon;
-    }
-    paint();
-    btn.addEventListener("click", function () {
-      var cur = root.getAttribute("data-theme");
-      var next = cur === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", next);
-      try { localStorage.setItem("loggbok-theme", next); } catch (e) {}
-      paint();
-    });
-  })();
+  function fb(t, cb) { var a = document.createElement("textarea"); a.value = t; a.style.position = "fixed"; a.style.opacity = 0; document.body.appendChild(a); a.select(); try { document.execCommand("copy"); } catch (e) {} document.body.removeChild(a); cb && cb(); }
 </script>
 </body>
 </html>
