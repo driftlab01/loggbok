@@ -417,7 +417,7 @@
 
   // ---- Build mailto ----
   (function () {
-    var subject = "Loggbok – melding fra Bildediagnostikk Kalnes";
+    var subject = "Loggbok - melding fra Bildediagnostikk Kalnes";
     var body = [
       "Enhet / lab: ",
       "Dato og klokkeslett: ",
@@ -428,8 +428,8 @@
       "Meldt av: "
     ].join("\r\n");
 
-    var href = "mailto:" + TO.join(",")
-      + "?cc=" + CC.join(",")
+    var href = "mailto:" + TO.join(";")
+      + "?cc=" + CC.join(";")
       + "&subject=" + encodeURIComponent(subject)
       + "&body=" + encodeURIComponent(body);
 
